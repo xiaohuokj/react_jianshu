@@ -9,9 +9,15 @@ import {
   Nav,
   NavItem,
   SearchWrapper,
+  SearchInfo,
+  SearchInfoTitle,
+  SearchInfoSwitch,
+  SearchInfoList,
+  SearchInfoItem,
   NavSearch,
   Addition,
-  Button
+  Button,
+
 } from './style'
 
 // 简写后 移除最底部 Component
@@ -20,6 +26,7 @@ import {
       // 下面return中的内容
    }
 }*/
+
 
 class Header extends Component {
 
@@ -49,6 +56,7 @@ class Header extends Component {
                       <i className={focused ? 'focused iconfont' : 'iconfont'}>&#xe62b;</i>
                     </Fragment>
                   </CSSTransition>
+                  {this.getListArea()}
                 </SearchWrapper>
               </Nav>
               <Addition>
@@ -64,27 +72,70 @@ class Header extends Component {
 
     )
   }
-
+  getListArea() {
+    // const { handleChangePage, page, totalPage} = this.props;
+    const newList = this.props.list.toJS();
+    const pageList = [];
+    if (newList.length) {
+      for (let i = ((this.props.page - 1) * 10); i < this.props.page * 10; i++) {
+        pageList.push(
+            <SearchInfoItem key={i}>{newList[i]}</SearchInfoItem>
+        )
+      }
+    }
+    if (this.props.focused || this.props.mouseIn) {
+      return (
+          <SearchInfo onMouseEnter={this.props.handleMouseEnter} onMouseLeave={this.props.handleMouseLeave}>
+            <SearchInfoTitle>
+              热门搜索
+              <SearchInfoSwitch onClick={() => this.props.handleChangePage(this.props.page, this.props.totalPage)}>换一换</SearchInfoSwitch>
+            </SearchInfoTitle>
+            <SearchInfoList>
+              {pageList}
+            </SearchInfoList>
+          </SearchInfo>
+      )
+    } else {
+      return null
+    }
+  }
 }
 
 const mapStateToProps = (state) => {
   return {
-    focused: state.header.focused
+    focused: state.get('header').get('focused'),
+    list: state.get('header').get('list'),
+    page: state.get('header').get('page'),
+    mouseIn: state.get('header').get('mouseIn'),
+    totalPage: state.get('header').get('totalPage')
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     handleIputFocus() {
-      const action = actionCreators.searchFocus()
-      dispatch(action)
+      dispatch(actionCreators.getList());
+      dispatch( actionCreators.searchFocus());
     },
 
     handleBlur() {
-      const action = actionCreators.searchBlur()
-      dispatch(action)
+      dispatch(actionCreators.searchBlur());
+    },
+    handleMouseEnter() {
+      dispatch(actionCreators.mouseEnter());
+    },
+    handleMouseLeave() {
+      dispatch(actionCreators.mouseLeave());
+    },
+    handleChangePage(page, totalPage) {
+      if (page < totalPage) {
+        dispatch(actionCreators.changePage(page + 1));
+      } else {
+        dispatch(actionCreators.changePage(1));
+      }
     }
   }
+
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
