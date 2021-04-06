@@ -109,6 +109,7 @@ export const SearchInfo = styled.div`
   width: 240px;
   padding: 0 20px;
   box-shadow: 0 0 8px rgb(0 0 0 / 20%);
+  background: #fff;
 `;
 
 export const SearchInfoTitle = styled.div`
@@ -138,6 +139,7 @@ export const SearchInfoItem = styled.a`
 export const SearchInfoSwitch = styled.span`
   float: right;
   font-size: 13px;
+  cursor: pointer;
 `;
 
 export const Addition = styled.div`

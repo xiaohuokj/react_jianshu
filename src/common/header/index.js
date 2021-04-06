@@ -31,7 +31,7 @@ import {
 class Header extends Component {
 
   render() {
-    const {focused, handleIputFocus, handleBlur} = this.props
+    const {focused, handleIputFocus, handleBlur, list} = this.props
     return (
         <Fragment>
           <HeaderWidthLimit>
@@ -52,7 +52,7 @@ class Header extends Component {
                       classNames="slide"
                   >
                     <Fragment>
-                      <NavSearch className={focused ? 'focused' : ''} onFocus={handleIputFocus} onBlur={handleBlur}></NavSearch>
+                      <NavSearch className={focused ? 'focused' : ''} onFocus={() => handleIputFocus(list)} onBlur={handleBlur}></NavSearch>
                       <i className={focused ? 'focused iconfont' : 'iconfont'}>&#xe62b;</i>
                     </Fragment>
                   </CSSTransition>
@@ -113,9 +113,13 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleIputFocus() {
-      dispatch(actionCreators.getList());
-      dispatch( actionCreators.searchFocus());
+    handleIputFocus(list) {
+      if (list.size === 0) {
+        dispatch(actionCreators.getList());
+        dispatch( actionCreators.searchFocus());
+      } else {
+        dispatch( actionCreators.searchFocus());
+      }
     },
 
     handleBlur() {
