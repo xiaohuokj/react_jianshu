@@ -14,8 +14,8 @@ class App extends Component {
         <Fragment>
           <Provider store={store}>
             <ResetStyle />
-            <Header />
             <BrowserRouter>
+              <Header />
               <Route path='/' exact component={Home}></Route>
               <Route path='/detail' exact component={Detail}></Route>
             </BrowserRouter>

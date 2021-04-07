@@ -2,6 +2,7 @@ import React, {Component, Fragment } from 'react';
 import {connect} from "react-redux";
 import { CSSTransition } from 'react-transition-group';
 import {actionCreators} from './store/index';
+import {Link} from "react-router-dom";
 import {
   HeaderWidthLimit,
   HeaderWrapper,
@@ -36,7 +37,9 @@ class Header extends Component {
         <Fragment>
           <HeaderWidthLimit>
             <HeaderWrapper>
-              <Logo />
+              <Link to='/'>
+                <Logo />
+              </Link>
               <Nav>
                 <NavItem className='left active'>首页</NavItem>
                 <NavItem className='left'>下载App</NavItem>
