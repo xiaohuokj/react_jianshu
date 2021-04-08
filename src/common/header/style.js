@@ -3,6 +3,11 @@ import logoPic from '../../statics/logo.png';
 
 export const HeaderWidthLimit = styled.div`
   border-bottom: 1px solid #f0f0f0;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
 `;
 
 export const HeaderWrapper = styled.div`
