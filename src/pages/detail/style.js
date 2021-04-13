@@ -5,6 +5,9 @@ export const DetailWrapper = styled.div`
   margin: 0 auto;
   padding-bottom: 100px;
   padding-top: 50px;
+  .imge {
+    width: 100%;
+  }
 `;
 
 export const Header = styled.div`

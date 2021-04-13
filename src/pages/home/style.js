@@ -75,6 +75,7 @@ export const WriterWrapper = styled.div`
   border-radius: 3px;
   height: 300px;
   text-align: center;
+  padding-left: 50px;
 `;
 
 export const WriterTitle = styled.div`
@@ -85,6 +86,9 @@ export const WriterTitle = styled.div`
   color: #969696;
   .titleLeft {
     float: left;
+    font-size: 18px;
+    font-weight: 500;
+    color: #404040;
   }
   .titleRight {
     float: right;
@@ -92,48 +96,23 @@ export const WriterTitle = styled.div`
 `;
 
 export const WriterList = styled.div`
-  margin-top: 25px;
-  .avatar {
-    float: left;
-    width: 48px;
-    height: 48px;
-    margin-right: 10px;
-    display: block;
-    cursor: pointer;
-    img {
-      width: 100%;
-      height: 100%;
-      border: 1px solid #ddd;
-      border-radius: 50%;
-      vertical-align: middle;
-    }
-  }
-  .follow {
-    float: right;
-    margin-top: 5px;
-    padding: 0;
-    font-size: 13px;
-    color: #42c02e;
-    i {
-      position: inherit;
-      width: inherit;
-      height: inherit;
-      font-size: 13px;
-    }
-  }
-  .text {
-    margin-right: 100px;
-    .name {
-      padding-top: 5px;
-      margin-right: 60px;
+  margin-top: 18px;
+  .listitem {
+    text-align: left;
+    .listitem_title1 {
       font-size: 14px;
-      display: block;
+      line-height: 22px;
+      margin-bottom: 4px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
     }
-    p {
-      margin-top: 12px;
+    .listitem_title2 {
       font-size: 12px;
       color: #969696;
-    } 
+    }
   }
 `;
 

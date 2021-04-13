@@ -1,37 +1,43 @@
 import React, {PureComponent} from "react";
 import {connect} from 'react-redux';
-import {WriterWrapper, WriterTitle, WriterList} from '../style'
+import {WriterWrapper, WriterTitle, WriterList} from '../style';
+import {actionCreators} from '../store/index'
 
 class Writer extends PureComponent {
   render() {
-    const {list} = this.props;
+    const {recommendRadList} = this.props;
     return (
         <WriterWrapper>
           <WriterTitle>
-            <div className='titleLeft'>推荐作者</div>
-            <div className='titleRight'>换一批</div>
+            <div className='titleLeft'>推荐阅读</div>
           </WriterTitle>
-          {list.map((item) => {
-            return <WriterList key={item.get('id')}>
-              <span className='avatar'>
-                <img src={item.get('imgUrl')} alt=""/>
-              </span>
-              <span className='follow'>
-                <i>关注</i>
-              </span>
-              <div className='text'>
-                <span className='name'>{item.get('name')}</span>
-                <p >写了0字 · 6.3k喜欢</p>
+          {recommendRadList.map((item, index) => {
+            return <WriterList key={index}>
+              <div className="listitem">
+                <div className="listitem_title1">
+                  <span>{item.get('title')}</span>
+                </div>
+                <div className="listitem_title2">阅读 {item.get('views_count')}</div>
               </div>
             </WriterList>
           })}
         </WriterWrapper>
     )
   }
+
+  componentDidMount() {
+    this.props.getrecommendRad()
+  }
 }
 
 const mapState = (state) => ({
-  list: state.get('home').get('authorList')
+  recommendRadList: state.get('home').get('recommendRad')
 })
 
-export default connect(mapState, null)(Writer);
+const mapDispatch = (dispatch) => ({
+  getrecommendRad() {
+    dispatch(actionCreators.getrecommendRad())
+  }
+})
+
+export default connect(mapState, mapDispatch)(Writer);
